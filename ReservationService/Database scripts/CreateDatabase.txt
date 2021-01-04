@@ -1,0 +1,171 @@
+USE [master]
+GO
+/****** Object:  Database [SafeFly]    Script Date: 1/4/2021 5:37:03 PM ******/
+CREATE DATABASE [SafeFly]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'SafeFly', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\SafeFly.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'SafeFly_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\SafeFly_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [SafeFly] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [SafeFly].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [SafeFly] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [SafeFly] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [SafeFly] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [SafeFly] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [SafeFly] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [SafeFly] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [SafeFly] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [SafeFly] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [SafeFly] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [SafeFly] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [SafeFly] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [SafeFly] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [SafeFly] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [SafeFly] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [SafeFly] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [SafeFly] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [SafeFly] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [SafeFly] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [SafeFly] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [SafeFly] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [SafeFly] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [SafeFly] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [SafeFly] SET RECOVERY FULL 
+GO
+ALTER DATABASE [SafeFly] SET  MULTI_USER 
+GO
+ALTER DATABASE [SafeFly] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [SafeFly] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [SafeFly] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [SafeFly] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [SafeFly] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'SafeFly', N'ON'
+GO
+ALTER DATABASE [SafeFly] SET QUERY_STORE = OFF
+GO
+USE [SafeFly]
+GO
+/****** Object:  Table [dbo].[Airports]    Script Date: 1/4/2021 5:37:03 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Airports](
+	[AirportId] [int] IDENTITY(1,1) NOT NULL,
+	[AirportName] [nvarchar](500) NULL,
+	[AirportCode] [nvarchar](10) NULL,
+	[CountryName] [nvarchar](500) NULL,
+	[Latitude] [decimal](18, 5) NULL,
+	[Longitude] [decimal](18, 5) NULL,
+ CONSTRAINT [PK_Airports] PRIMARY KEY CLUSTERED 
+(
+	[AirportId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Flights]    Script Date: 1/4/2021 5:37:03 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Flights](
+	[FlightId] [bigint] IDENTITY(1,1) NOT NULL,
+	[FlightNumber] [nvarchar](100) NULL,
+	[TakeOffAirport] [int] NULL,
+	[TakeOffDate] [datetime] NULL,
+	[LandingAirport] [int] NULL,
+	[LandingDate] [datetime] NULL,
+	[Price] [int] NULL,
+ CONSTRAINT [PK_Flights] PRIMARY KEY CLUSTERED 
+(
+	[FlightId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Airports] ON 
+GO
+INSERT [dbo].[Airports] ([AirportId], [AirportName], [AirportCode], [CountryName], [Latitude], [Longitude]) VALUES (1, N'Otopeni', N'OTP', N'Romania', CAST(44.57076 AS Decimal(18, 5)), CAST(26.08388 AS Decimal(18, 5)))
+GO
+INSERT [dbo].[Airports] ([AirportId], [AirportName], [AirportCode], [CountryName], [Latitude], [Longitude]) VALUES (2, N'Istanbul', N'IST', N'Turkey', CAST(41.26016 AS Decimal(18, 5)), CAST(28.74039 AS Decimal(18, 5)))
+GO
+INSERT [dbo].[Airports] ([AirportId], [AirportName], [AirportCode], [CountryName], [Latitude], [Longitude]) VALUES (3, N'Viena', N'WIN', N'Austria', CAST(48.11271 AS Decimal(18, 5)), CAST(16.57497 AS Decimal(18, 5)))
+GO
+SET IDENTITY_INSERT [dbo].[Airports] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Flights] ON 
+GO
+INSERT [dbo].[Flights] ([FlightId], [FlightNumber], [TakeOffAirport], [TakeOffDate], [LandingAirport], [LandingDate], [Price]) VALUES (1, N'AK12345', 1, CAST(N'2021-01-03T23:39:23.350' AS DateTime), 2, CAST(N'2021-01-02T02:39:23.350' AS DateTime), 100)
+GO
+INSERT [dbo].[Flights] ([FlightId], [FlightNumber], [TakeOffAirport], [TakeOffDate], [LandingAirport], [LandingDate], [Price]) VALUES (2, N'FG34567', 1, CAST(N'2021-01-03T23:40:23.350' AS DateTime), 3, CAST(N'2021-01-04T01:40:23.350' AS DateTime), 50)
+GO
+SET IDENTITY_INSERT [dbo].[Flights] OFF
+GO
+ALTER TABLE [dbo].[Flights]  WITH CHECK ADD  CONSTRAINT [FK_Flights_Airports_LandingAirport] FOREIGN KEY([LandingAirport])
+REFERENCES [dbo].[Airports] ([AirportId])
+GO
+ALTER TABLE [dbo].[Flights] CHECK CONSTRAINT [FK_Flights_Airports_LandingAirport]
+GO
+ALTER TABLE [dbo].[Flights]  WITH CHECK ADD  CONSTRAINT [FK_Flights_Airports_TakeOffAirport] FOREIGN KEY([TakeOffAirport])
+REFERENCES [dbo].[Airports] ([AirportId])
+GO
+ALTER TABLE [dbo].[Flights] CHECK CONSTRAINT [FK_Flights_Airports_TakeOffAirport]
+GO
+/****** Object:  StoredProcedure [dbo].[uspSelectFlights]    Script Date: 1/4/2021 5:37:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[uspSelectFlights] 
+@TakeOffAirport INT,
+@LandingAirport INT,
+@TakeOffDate DATE,
+@LandingDate DATE
+AS
+
+select FlightId, FlightNumber, a1.AirportName as TakeOffAirportDescription, a2.AirportName as LandingAirportDescription, TakeOffDate, LandingDate, Price
+from Flights f inner join Airports a1 on f.TakeOffAirport = a1.AirportId
+inner join Airports a2 on f.LandingAirport = a2.AirportId
+where (@takeOffAirport is null or f.TakeOffAirport = @takeOffAirport)
+and (@landingAirport is null or f.LandingAirport = @landingAirport)
+and (@takeOffDate is null or  CONVERT(date, f.TakeOffDate) = CONVERT(date, @takeOffDate))
+and (@landingDate is null or  CONVERT(date, f.LandingDate) = CONVERT(date, @landingDate))
+GO
+USE [master]
+GO
+ALTER DATABASE [SafeFly] SET  READ_WRITE 
+GO
