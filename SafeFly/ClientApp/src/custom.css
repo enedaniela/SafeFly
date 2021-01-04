@@ -1,0 +1,76 @@
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #E01A76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+#dropdown-button-origin {
+  min-width: 180px;
+  float: left;
+}
+
+#dropdown-button-destination {
+  min-width: 180px;
+  float: left;
+}
+
+.backgroundColor {
+  padding: 30px;
+  background-color: white;
+  margin-right: 15px !important;
+  margin-left: 15px !important;
+  color: white;
+}
+
+.backgroundImage {
+  background-image: url("assets/header-beackground.jpg");
+  height: 450px;
+  width: 100%;
+  text-align:center;
+}
+
+.headerContent{
+  padding-top: 100px;
+}
+
+.headerContent h1{
+  color: white;
+}
+
+.headerContent p{
+  color: whitesmoke;
+}
+
+.smallHeader{
+  float: left;
+  color: grey;
+  font-size: small;
+}
+
+.externalInfo{
+  padding-top: 20px
+}
+
+.cardWeather{
+  border-width: 1px;
+  border-color: turquoise;
+}
+
+.cardCovid{
+  border-width: 1px;
+  border-color: red;
+  margin-bottom: 10px;
+}
+
+.flightCard{
+  margin-top:10px;
+}
