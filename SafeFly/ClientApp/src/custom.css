@@ -79,3 +79,8 @@ code {
     color: white;
     height: 10px;
 }
+
+.emptyCol{
+    color: white;
+    width: 10px;
+}

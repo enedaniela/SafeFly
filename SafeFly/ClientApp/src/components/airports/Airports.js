@@ -11,29 +11,16 @@ export class Airports extends Component {
         this.state = {
             airports: [],
         };
-
-        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
         this.populateAirportsData();
     }
 
-    componentDidUpdate() {
-        this.componentDidMount();
-    }
-
     async populateAirportsData() {
         const response = await fetch(`nomenclatoare/airports`);
         const data = await response.json();
         this.setState({ airports: data, loading: false });
-    }
-
-    async handleDelete(airportId) {
-        const requestOptions = {
-            method: 'POST'
-        };
-        await fetch(`nomenclatoare/airports/delete-airport/${encodeURIComponent(airportId)}`, requestOptions);
     }
 
     render() {
@@ -79,19 +66,28 @@ export class Airports extends Component {
                                 </div>
                                 <div className="col-md-1"/>
                                 <div>
-                                        <Link to={{
-                                            pathname: "/airports-edit",
-                                            state: {
-                                                airportId: airport.airportId 
-                                                  }
-                                                }}
-                                            > 
+                                    <Link to={{
+                                        pathname: "/airports-edit",
+                                        state: {
+                                            airportId: airport.airportId 
+                                                }
+                                            }}
+                                        > 
                                         <Button color="primary">Edit</Button>
                                     </Link>
                                 </div>
-                                <div className="col-md-1"/>
+                                <div className="col-md-1" />
+                                    <Link to={{
+                                        pathname: "/airports-delete",
+                                        state: {
+                                            airportId: airport.airportId
+                                        }
+                                    }}
+                                    >
+                                        <Button color="danger">Delete</Button>
+                                    </Link>
                                     <div>
-                                        <Button color="danger" onClick={() => this.handleDelete(airport.airportId)}>Delete</Button>
+                                        
                                 </div>
                             </div>
                         </CardBody>

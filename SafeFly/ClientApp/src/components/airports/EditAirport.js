@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Container, Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Link } from "react-router-dom";
 
 export class EditAirport extends Component {
 
@@ -134,8 +135,17 @@ export class EditAirport extends Component {
                                     onChange={this.handleLongitudeChange} placeholder="e.g. 26.08388" />
                             </Col>
                         </FormGroup>
-                    </Col>
-                    <Button color="success" onClick={this.handleSubmit} >Submit</Button>
+                    </Col>                    
+                    <div className="row">
+                        <div className="col-sm-1">
+                            <Button color="success" onClick={this.handleSubmit} >Submit</Button>
+                        </div>
+                        <div className="col-sm-1">
+                            <Link to="/airports">
+                                <Button color="primary">Back</Button>
+                            </Link>
+                        </div>
+                    </div>
                 </Form>
             </Container>
         );

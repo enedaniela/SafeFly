@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Table, } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 import { Link } from "react-router-dom";
 import Moment from 'react-moment';
 
@@ -118,7 +118,9 @@ export class AirportDetails extends Component {
                 <div className="takeOffFlights">{takeOffFlights}</div>
                 <h4>Flights to land</h4>
                 <div className="landingFlights">{landingFlights}</div>
-                <Link to="/airports"> Back to airports list </Link>  
+                <Link to="/airports">
+                    <Button color="primary">Back</Button>
+                </Link>
             </div>
             );
     }
