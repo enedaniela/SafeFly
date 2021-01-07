@@ -74,3 +74,13 @@ code {
 .flightCard{
   margin-top:10px;
 }
+
+.emptyRow {
+    color: white;
+    height: 10px;
+}
+
+.emptyCol{
+    color: white;
+    width: 10px;
+}

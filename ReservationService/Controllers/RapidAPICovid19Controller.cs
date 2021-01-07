@@ -70,7 +70,7 @@ namespace ReservationService.Controllers
 
         public static DbConnection GetOpenConnection()
         {
-            string connectionString = $"Server=(local);Database=SafeFly;User ID=sa;Password=dana;MultipleActiveResultSets=true";
+            string connectionString = $"Server=(local);Database=SafeFly;User ID=sa;Password=sa_account;MultipleActiveResultSets=true";
             var connection = new SqlConnection(connectionString);
             connection.Open();
 

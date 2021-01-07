@@ -178,7 +178,8 @@ export class Home extends Component {
                     onChange= {(v,f) => this.handleSelectLandingDate(v, f)} id = "datepicker-endDate"/>
             </div>
             <div className="col-md-2">
-            <div className="smallHeader"> </div>
+            <div className="smallHeader">
+            </div>
             <Button variant="info" onClick={() => {
               this.searchFlights()}}>Search flights</Button>{' '}  
             </div>
