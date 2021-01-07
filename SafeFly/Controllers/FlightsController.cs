@@ -36,9 +36,43 @@ namespace ClientService.Controllers
             return flights;
         }
 
+        [HttpGet("takeOff/{takeOffAirport}")]
+        public async Task<List<FlightModels>> GetTakeOffFlights(int? takeOffAirport)
+        {
+            List<FlightModels> flights = new List<FlightModels>();
+
+            using (var connection = GetOpenConnection())
+            {
+                flights = connection.Query<FlightModels>(
+                     @"SELECT FlightId, FlightNumber, a1.AirportName as TakeOffAirportDescription, TakeOffDate, a2.AirportName as LandingAirportDescription, LandingDate, Price 
+                       FROM Flights f inner join Airports a1 on f.TakeOffAirport = a1.AirportId 
+                       inner join Airports a2 on f.LandingAirport = a2.AirportId
+                       WHERE TakeOffAirport = " + takeOffAirport).ToList();
+            }
+
+            return flights;
+        }
+
+        [HttpGet("landing/{landingAirport}")]
+        public async Task<List<FlightModels>> GetLandingFlights(int? landingAirport)
+        {
+            List<FlightModels> flights = new List<FlightModels>();
+
+            using (var connection = GetOpenConnection())
+            {
+                flights = connection.Query<FlightModels>(
+                    @"SELECT FlightId, FlightNumber, a1.AirportName as TakeOffAirportDescription, TakeOffDate, a2.AirportName as LandingAirportDescription, LandingDate, Price 
+                       FROM Flights f inner join Airports a1 on f.LandingAirport = a1.AirportId 
+                       inner join Airports a2 on f.LandingAirport = a2.AirportId
+                       WHERE LandingAirport = " + landingAirport).ToList();
+            }
+
+            return flights;
+        }
+
         public static DbConnection GetOpenConnection()
         {
-            string connectionString = $"Server=(local);Database=SafeFly;User ID=sa;Password=dana;MultipleActiveResultSets=true";
+            string connectionString = $"Server=(local);Database=SafeFly;User ID=sa;Password=sa_account;MultipleActiveResultSets=true";
             var connection = new SqlConnection(connectionString);
             connection.Open();
 
