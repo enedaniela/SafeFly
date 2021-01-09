@@ -12,6 +12,7 @@ export class EditAirport extends Component {
             airportId: "",
             airportName: "",
             airportCode: "",
+            cityName: "",
             countryName: "",
             latitude: "",
             longitude: ""
@@ -19,6 +20,7 @@ export class EditAirport extends Component {
 
         this.handleAirportNameChange = this.handleAirportNameChange.bind(this);
         this.handleAirportCodeChange = this.handleAirportCodeChange.bind(this);
+        this.handleCityChange = this.handleCityChange.bind(this);
         this.handleCountryChange = this.handleCountryChange.bind(this);
         this.handleLatitudeChange = this.handleLatitudeChange.bind(this);
         this.handleLongitudeChange = this.handleLongitudeChange.bind(this);
@@ -26,17 +28,17 @@ export class EditAirport extends Component {
     }
 
     componentDidMount() {
-        const { airportId } = this.props.location.state;   
-        this.getAirport(airportId);
+        this.getAirport(this.props.location.state.payload);
     }
 
     async getAirport(airportId) {
-        const response = await fetch(`nomenclatoare/airports/${encodeURIComponent(airportId)}`);
+        const response = await fetch(`airports/get-airport/${encodeURIComponent(airportId)}`);
         const data = await response.json();
         this.setState({
             airportId: data.airportId,
             airportName: data.airportName,
             airportCode: data.airportCode,
+            cityName: data.cityName,
             countryName: data.countryName,
             latitude: data.latitude,
             longitude: data.longitude,
@@ -50,6 +52,7 @@ export class EditAirport extends Component {
             airportId: this.state.airportId,
             airportName: this.state.airportName,
             airportCode: this.state.airportCode,
+            cityName: this.state.cityName,
             countryName: this.state.countryName,
             latitude: this.state.latitude,
             longitude: this.state.longitude,
@@ -61,7 +64,7 @@ export class EditAirport extends Component {
             body: JSON.stringify(airport)
         };
 
-        await fetch(`nomenclatoare/airports/edit-airport`, requestOptions);
+        await fetch(`airports/edit-airport`, requestOptions);
 
         this.props.history.push('/airports');
     }
@@ -76,6 +79,10 @@ export class EditAirport extends Component {
 
     handleCountryChange(event) {
         this.setState({ countryName: event.target.value });
+    }
+
+    handleCityChange(event) {
+        this.setState({ cityName: event.target.value });
     }
 
     handleLatitudeChange(event) {
@@ -106,6 +113,15 @@ export class EditAirport extends Component {
                             <Col sm={3}>
                                 <Input type="text" name="airportCode" id="airportCode" value={this.state.airportCode}
                                     onChange={this.handleAirportCodeChange} placeholder="e.g. OTP" />
+                            </Col>
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup row>
+                            <Label for="city" sm={2}>City</Label>
+                            <Col sm={3}>
+                                <Input type="text" name="city" id="city" value={this.state.cityName}
+                                    onChange={this.handleCityChange} placeholder="e.g. Bucharest" />
                             </Col>
                         </FormGroup>
                     </Col>

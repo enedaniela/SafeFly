@@ -11,6 +11,7 @@ export class AddAirport extends Component {
         this.state = {
             airportName: "",
             airportCode: "",
+            cityName: "",
             countryName: "",
             latitude: "",
             longitude: ""
@@ -18,16 +19,19 @@ export class AddAirport extends Component {
 
         this.handleAirportNameChange = this.handleAirportNameChange.bind(this);
         this.handleAirportCodeChange = this.handleAirportCodeChange.bind(this);
+        this.handleCityChange = this.handleCityChange.bind(this);
         this.handleCountryChange = this.handleCountryChange.bind(this);
         this.handleLatitudeChange = this.handleLatitudeChange.bind(this);
         this.handleLongitudeChange = this.handleLongitudeChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    async handleSubmit(event) {        
+    async handleSubmit(event) {   
+        
         let airport = {
             airportName: this.state.airportName,
             airportCode: this.state.airportCode,
+            cityName: this.state.cityName,
             countryName: this.state.countryName,
             latitude: this.state.latitude,
             longitude: this.state.longitude,
@@ -39,7 +43,7 @@ export class AddAirport extends Component {
             body: JSON.stringify(airport)
         };
 
-        await fetch(`nomenclatoare/airports/add-airport`, requestOptions);
+        await fetch(`airports/add-airport`, requestOptions);
 
         this.props.history.push('/airports');
     }
@@ -50,6 +54,10 @@ export class AddAirport extends Component {
 
     handleAirportCodeChange(event) {
         this.setState({ airportCode: event.target.value });
+    }
+
+    handleCityChange(event) {
+        this.setState({ cityName: event.target.value });
     }
 
     handleCountryChange(event) {
@@ -84,6 +92,15 @@ export class AddAirport extends Component {
                             <Col sm={3}>
                                 <Input type="text" name="airportCode" id="airportCode" value={this.state.airportCode}
                                     onChange={this.handleAirportCodeChange} placeholder="e.g. OTP" />
+                            </Col>
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup row>
+                            <Label for="city" sm={2}>City</Label>
+                            <Col sm={3}>
+                                <Input type="text" name="city" id="city" value={this.state.cityName}
+                                    onChange={this.handleCityChange} placeholder="e.g. Bucharest" />
                             </Col>
                         </FormGroup>
                     </Col>

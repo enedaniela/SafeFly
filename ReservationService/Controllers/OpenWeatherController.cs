@@ -32,7 +32,7 @@ namespace ReservationService.Controllers
             using (var connection = GetOpenConnection())
             {
                airport  = connection.Query<AirportModel>(
-                    @"select AirportId, AirportName, CountryName, AirportCode, Latitude, Longitude
+                    @"select AirportId, AirportName, CityName, CountryName, AirportCode, Latitude, Longitude
                         from Airports where AirportId = " + airportId).FirstOrDefault();//<= TODO: use parameters
             }
             //TODO: add link to config

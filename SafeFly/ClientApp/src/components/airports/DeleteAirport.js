@@ -16,12 +16,11 @@ export class DeleteAirport extends Component {
     }
 
     componentDidMount() {
-        const { airportId } = this.props.location.state;
-        this.getAirport(airportId);
+        this.getAirport(this.props.location.state.payload);
     }
 
     async getAirport(airportId) {
-        const response = await fetch(`nomenclatoare/airports/${encodeURIComponent(airportId)}`);
+        const response = await fetch(`airports/get-airport/${encodeURIComponent(airportId)}`);
         const data = await response.json();
         this.setState({
             airport: data,
@@ -35,7 +34,7 @@ export class DeleteAirport extends Component {
             method: 'POST'
         };
 
-        await fetch(`nomenclatoare/airports/delete-airport/${encodeURIComponent(this.state.airport.airportId)}`, requestOptions);
+        await fetch(`airports/delete-airport/${encodeURIComponent(this.state.airport.airportId)}`, requestOptions);
         this.props.history.push('/airports');
     }
 
@@ -58,6 +57,12 @@ export class DeleteAirport extends Component {
                         </dt>
                         <dd class="col-sm-10">
                             {this.state.airport.airportCode}
+                        </dd>
+                        <dt class="col-sm-2">
+                            City
+                        </dt>
+                        <dd class="col-sm-10">
+                            {this.state.airport.cityName}
                         </dd>
                         <dt class="col-sm-2">
                             Country
