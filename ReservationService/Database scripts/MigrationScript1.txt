@@ -50,6 +50,8 @@ ALTER TABLE [dbo].[Flights] ADD [Status] [nvarchar](50);
 ALTER TABLE [dbo].[Flights] ADD [NumberOfPassengers] [int];
 ALTER TABLE [dbo].[Flights] ADD [Airline] [int];
 
+ALTER TABLE [dbo].[Airports] ADD [Cityname] [nvarchar](500);
+
 ALTER TABLE [dbo].[Flights]  WITH CHECK ADD  CONSTRAINT [FK_Flights_Airlines_Airline] FOREIGN KEY([Airline])
 REFERENCES [dbo].[Airlines] ([AirlineId])
 GO
