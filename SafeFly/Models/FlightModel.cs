@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ClientService.Models
 {
-    public class FlightModels
+    public class FlightModel
     {
         public int FlightId { get; set; }
         public string FlightNumber { get; set; }
@@ -15,6 +15,10 @@ namespace ClientService.Models
         public string LandingAirportDescription { get; set; }
         public DateTime TakeOffDate { get; set; }
         public DateTime LandingDate { get; set; }
+        public string Status { get; set; }
+        public int Airline { get; set; }
+        public string AirlineDescription { get; set; }
+        public int NumberOfPassengers { get; set; }
         public int Price { get; set; }
     }
 }

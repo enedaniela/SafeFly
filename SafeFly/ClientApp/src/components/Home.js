@@ -20,7 +20,7 @@ export class Home extends Component {
     }
 
     async populateAirportsData() {
-        const response = await fetch(`nomenclatoare/airports`);
+        const response = await fetch(`airports/get-airports`);
         const data = await response.json();
         this.setState({ airports: data, loading: false });
     }
@@ -163,7 +163,7 @@ export class Home extends Component {
             </DropdownButton>
             </div>
             <div className="col-md-3">
-                        <DropdownButton className="" id="dropdown-button-destination" title={this.state.landingAirportDescription} onSelect={this.handleSelectLandingAirport.bind(this)}>
+            <DropdownButton className="" id="dropdown-button-destination" title={this.state.landingAirportDescription} onSelect={this.handleSelectLandingAirport.bind(this)}>
             {airports.map((option) => (
                 <Dropdown.Item eventKey={option.airportId} value={option.airportCode}>{option.airportName} ({option.airportCode})</Dropdown.Item>                           
             ))}
@@ -212,7 +212,7 @@ export class Home extends Component {
 
     searchFlights() {
         this.populateCovidData();
-        this.populateWeatherData();
+        //this.populateWeatherData();
         this.populateFlightsData();
         console.log(this.state);
     }
@@ -225,10 +225,10 @@ export class Home extends Component {
     }
 
     async populateWeatherData() {
-        const airportId = this.state.landingAirport.airportId;
-        const response = await fetch(`externalService/weather/${encodeURIComponent(airportId)}`);
-        const data = await response.json();
-        this.setState({ forecast: data, externalInfo: true });
+        //const airportId = this.state.landingAirport.airportId;
+        //const response = await fetch(`externalService/weather/${encodeURIComponent(airportId)}`);
+        //const data = await response.json();
+        //this.setState({ forecast: data, externalInfo: true });
     }
 
     async populateFlightsData() {

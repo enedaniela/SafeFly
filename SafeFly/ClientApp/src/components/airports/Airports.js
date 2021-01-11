@@ -18,7 +18,7 @@ export class Airports extends Component {
     }
 
     async populateAirportsData() {
-        const response = await fetch(`nomenclatoare/airports`);
+        const response = await fetch(`airports/get-airports`);
         const data = await response.json();
         this.setState({ airports: data, loading: false });
     }
@@ -28,13 +28,16 @@ export class Airports extends Component {
             <div>
                 <CardBody>
                     <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-sm-2">
                             <strong>Airport</strong>
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-sm-2">
                             <strong>Code</strong>
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-sm-2">
+                            <strong>City</strong>
+                        </div>
+                        <div className="col-sm-2">
                             <strong>Country</strong>
                         </div>
                     </div>
@@ -44,51 +47,52 @@ export class Airports extends Component {
                     <Card className="airportCard">
                         <CardBody>                            
                             <div className="row">
-                                <div className="col-md-2">
+                                <div className="col-sm-2">
                                     {airport.airportName}
                                 </div>
-                                <div className="col-md-2">
+                                <div className="col-sm-2">
                                     {airport.airportCode}
                                 </div>
-                                <div className="col-md-2">
+                                <div className="col-sm-2">
+                                    {airport.cityName}
+                                </div>
+                                <div className="col-sm-2">
                                     {airport.countryName}
                                 </div>
-                                <div>
+                                <div className="col">
                                     <Link to={{
-                                        pathname: "/airports-details",
+                                        pathname: "/airport-details",
                                         state: {
-                                            airportId: airport.airportId
+                                            payload: airport.airportId
                                         }
                                     }}
                                     >
                                         <Button color="info">Details</Button>
                                     </Link>
                                 </div>
-                                <div className="col-md-1"/>
+                                <div className="col"/>
                                 <div>
                                     <Link to={{
-                                        pathname: "/airports-edit",
+                                        pathname: "/airport-edit",
                                         state: {
-                                            airportId: airport.airportId 
+                                            payload: airport.airportId 
                                                 }
                                             }}
                                         > 
                                         <Button color="primary">Edit</Button>
                                     </Link>
                                 </div>
-                                <div className="col-md-1" />
+                                <div className="col" />
                                     <Link to={{
-                                        pathname: "/airports-delete",
+                                        pathname: "/airport-delete",
                                         state: {
-                                            airportId: airport.airportId
+                                            payload: airport.airportId
                                         }
                                     }}
                                     >
                                         <Button color="danger">Delete</Button>
                                     </Link>
-                                    <div>
-                                        
-                                </div>
+                                    <div className="emptyCol"></div>
                             </div>
                         </CardBody>
                         </Card>
@@ -99,7 +103,7 @@ export class Airports extends Component {
                     
                 ))}
                 <CardBody>
-                    <Link to="/airports-add">            
+                    <Link to="/airport-add">            
                             <Button color="primary">Add airport</Button>  
                     </Link>                         
                 </CardBody>                

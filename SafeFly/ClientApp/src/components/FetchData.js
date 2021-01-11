@@ -10,7 +10,7 @@ export class FetchData extends Component {
 
     componentDidMount() {
         this.populateCovidData();
-        this.populateWeatherData();
+        //this.populateWeatherData();
   }
 
     static renderExternalServiceTable(covid, forecast) {

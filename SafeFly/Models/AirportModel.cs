@@ -11,6 +11,7 @@ namespace ClientService.Models
         public string AirportName { get; set; }
         public string AirportCode { get; set; }
         public string CountryName { get; set; }
+        public string CityName { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
     }

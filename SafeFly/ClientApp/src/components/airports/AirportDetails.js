@@ -17,12 +17,11 @@ export class AirportDetails extends Component {
     }
 
     componentDidMount() {
-        const { airportId } = this.props.location.state;
-        this.getAirport(airportId);
+        this.getAirport(this.props.location.state.payload);
     }
 
     async getAirport(airportId) {
-        const response = await fetch(`nomenclatoare/airports/${encodeURIComponent(airportId)}`);
+        const response = await fetch(`airports/get-airport/${encodeURIComponent(airportId)}`);
         const data = await response.json();
         this.setState({
             airport: data,
@@ -61,6 +60,12 @@ export class AirportDetails extends Component {
                         {airport.airportCode}
                     </dd>
                     <dt class="col-sm-2">
+                        City
+                    </dt>
+                    <dd class="col-sm-10">
+                        {airport.cityName}
+                    </dd>
+                    <dt class="col-sm-2">
                         Country
                     </dt>
                     <dd class="col-sm-10">
@@ -71,23 +76,42 @@ export class AirportDetails extends Component {
         );
     }
 
-    static renderFlights(flights) {
+    static renderFlights(flights, payload) {
         return (
             <Table>
                 <thead>
                     <tr>
                         <th>Flight Number</th>
+                        <th>Airline</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Number of passengers</th>
                         <th>Take Off Airport</th>
                         <th>Take Off Date</th>
                         <th>Landing Airport</th>
-                        <th>Landing Date</th>
-                        <th>Price</th>
+                        <th>Landing Date</th>                        
                     </tr>
                 </thead>
                 <tbody>
                     {flights.map((flight) => (
                         <tr>
-                            <td>{flight.flightNumber}</td>
+                            <td>
+                                <Link to={{
+                                    pathname: "/flight-details",
+                                    state: {
+                                        flightId: flight.flightId,
+                                        parentPage: "/airport-details",
+                                        payload: payload
+                                    }
+                                }}
+                                >
+                                    {flight.flightNumber}
+                                </Link>
+                            </td>
+                            <td>{flight.airlineDescription}</td>
+                            <td>{flight.price}$</td>
+                            <td>{flight.status}</td>
+                            <td>{flight.numberOfPassengers}</td>
                             <td>{flight.takeOffAirportDescription}</td>
                             <td>
                                 <Moment date={flight.takeOffDate} format="MM-DD-YYYY HH:mm:ss" />
@@ -96,7 +120,6 @@ export class AirportDetails extends Component {
                             <td>
                                 <Moment date={flight.landingDate} format="MM-DD-YYYY HH:mm:ss" />
                             </td>
-                            <td>{flight.price}$</td>
                         </tr>
                     ))}
                 </tbody>
@@ -106,8 +129,8 @@ export class AirportDetails extends Component {
 
     render() {
         let airport = AirportDetails.renderAirport(this.state.airport)
-        let takeOffFlights = AirportDetails.renderFlights(this.state.takeOffFlights);
-        let landingFlights = AirportDetails.renderFlights(this.state.landingFlights);
+        let takeOffFlights = AirportDetails.renderFlights(this.state.takeOffFlights, this.state.airport.airportId);
+        let landingFlights = AirportDetails.renderFlights(this.state.landingFlights, this.state.airport.airportId);
 
         return (
             <div>

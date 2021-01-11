@@ -2,28 +2,28 @@
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-export class DeleteAirport extends Component {
+export class DeleteAirline extends Component {
 
-    static displayName = DeleteAirport.name;
+    static displayName = DeleteAirline.name;
 
     constructor(props) {
         super(props);
         this.state = {
-            airport: {}
+            airline: {}
         };
 
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount() {
-        this.getAirport(this.props.location.state.payload);
+        this.getAirline(this.props.location.state.payload);
     }
 
-    async getAirport(airportId) {
-        const response = await fetch(`airports/get-airport/${encodeURIComponent(airportId)}`);
+    async getAirline(airlineId) {
+        const response = await fetch(`airlines/get-airline/${encodeURIComponent(airlineId)}`);
         const data = await response.json();
         this.setState({
-            airport: data,
+            airline: data,
             loading: false
         });
     }
@@ -34,8 +34,8 @@ export class DeleteAirport extends Component {
             method: 'POST'
         };
 
-        await fetch(`airports/delete-airport/${encodeURIComponent(this.state.airport.airportId)}`, requestOptions);
-        this.props.history.push('/airports');
+        await fetch(`airlines/delete-airline/${encodeURIComponent(this.state.airline.airlineId)}`, requestOptions);
+        this.props.history.push('/airlines');
     }
 
     render() {
@@ -43,32 +43,26 @@ export class DeleteAirport extends Component {
             <div>
                 <h3>Are you sure you want to delete this?</h3>
                 <div>
-                    <h4>Airport</h4>
+                    <h4>Airline</h4>
                     <hr />
                     <dl className="row">
                         <dt class="col-sm-2">
-                            Airport Name
+                            Airline Name
                         </dt>
                         <dd class="col-sm-10">
-                            {this.state.airport.airportName}
+                            {this.state.airline.airlineName}
                         </dd>
                         <dt class="col-sm-2">
-                            Airport Code
+                            Airline Code
                         </dt>
                         <dd class="col-sm-10">
-                            {this.state.airport.airportCode}
-                        </dd>
-                        <dt class="col-sm-2">
-                            City
-                        </dt>
-                        <dd class="col-sm-10">
-                            {this.state.airport.cityName}
-                        </dd>
+                            {this.state.airline.airlineCode}
+                        </dd>                        
                         <dt class="col-sm-2">
                             Country
                         </dt>
                         <dd class="col-sm-10">
-                            {this.state.airport.countryName}
+                            {this.state.airline.countryName}
                         </dd>
                     </dl>
                 </div>
@@ -77,12 +71,12 @@ export class DeleteAirport extends Component {
                         <Button color="danger" onClick={this.handleSubmit}>Delete</Button>
                     </div>
                     <div className="col-sm-1">
-                        <Link to="/airports">
+                        <Link to="/airlines">
                             <Button color="primary">Back</Button>
                         </Link>
                     </div>
                 </div>
             </div>
-            );
+        );
     }
 }
